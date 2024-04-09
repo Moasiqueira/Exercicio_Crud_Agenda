@@ -15,6 +15,9 @@
     <label for="telefone">Telefone:</label>
     <input type="tel" id="telefone" name="telefone" required>
 
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
     <button type="submit">Adicionar</button>
   </form>
 
@@ -25,11 +28,12 @@
     const contatos = [];
 
     // Função para adicionar um novo contato
-    function adicionarContato(nome, telefone) {
+    function adicionarContato(nome, telefone, email) {
       // Criar objeto de contato
       const contato = {
         nome,
         telefone,
+        email,
         dataCriacao: new Date().toLocaleString(),
       };
 
@@ -53,6 +57,7 @@
         liEl.innerHTML = `
           <h2>${contato.nome}</h2>
           <p>${contato.telefone}</p>
+          <p>${contato.email}</P>
           <p>Data de criação: ${contato.dataCriacao}</p>
         `;
 
@@ -71,9 +76,10 @@
       // Obter nome e telefone do formulário
       const nome = document.getElementById("nome").value;
       const telefone = document.getElementById("telefone").value;
+      const email = document.getElementById("email").value;
 
       // Adicionar novo contato
-      adicionarContato(nome, telefone);
+      adicionarContato(nome, telefone, email);
 
       // Limpar formulário
       formContatoEl.reset();
