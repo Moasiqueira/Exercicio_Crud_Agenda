@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda de Contatos</title>
+</head>
+<body>
+  <h1>Agenda de Contatos</h1>
+
+  <form id="form-contato">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required>
+
+    <label for="telefone">Telefone:</label>
+    <input type="tel" id="telefone" name="telefone" required>
+
+    <button type="submit">Adicionar</button>
+  </form>
+
+  <ul id="lista-contatos"></ul>
+
+  <script>
+    // Array para armazenar os contatos
+    const contatos = [];
+
+    // Função para adicionar um novo contato
+    function adicionarContato(nome, telefone) {
+      // Criar objeto de contato
+      const contato = {
+        nome,
+        telefone,
+        dataCriacao: new Date().toLocaleString(),
+      };
+
+      // Adicionar contato ao array
+      contatos.push(contato);
+
+      // Atualizar lista de contatos na tela
+      atualizarListaContatos();
+    }
+
+    // Função para atualizar a lista de contatos na tela
+    function atualizarListaContatos() {
+      const listaContatosEl = document.getElementById("lista-contatos");
+
+      // Limpar lista
+      listaContatosEl.innerHTML = "";
+
+      // Percorrer contatos e adicionar na tela
+      for (const contato of contatos) {
+        const liEl = document.createElement("li");
+        liEl.innerHTML = `
+          <h2>${contato.nome}</h2>
+          <p>${contato.telefone}</p>
+          <p>Data de criação: ${contato.dataCriacao}</p>
+        `;
+
+        listaContatosEl.appendChild(liEl);
+      }
+    }
+
+    // Obter elementos do formulário
+    const formContatoEl = document.getElementById("form-contato");
+
+    // Adicionar evento de submit ao formulário
+    formContatoEl.addEventListener("submit", (event) => {
+      // Evitar recarregamento da página
+      event.preventDefault();
+
+      // Obter nome e telefone do formulário
+      const nome = document.getElementById("nome").value;
+      const telefone = document.getElementById("telefone").value;
+
+      // Adicionar novo contato
+      adicionarContato(nome, telefone);
+
+      // Limpar formulário
+      formContatoEl.reset();
+    });
+
+    // Inicializar lista de contatos
+    atualizarListaContatos();
+  </script>
+</body>
+</html>
